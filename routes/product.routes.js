@@ -14,4 +14,10 @@ const cacheMiddleware = require('../middleware/cache.middleware');
 router.get('/', cacheMiddleware, productController.getAllProducts);
 router.get('/:id', cacheMiddleware, productController.getProductById);
 
+// Write routes (invalidation middleware will be added in the next commit)
+router.post('/', productController.createProduct);
+router.put('/:id', productController.updateProduct);
+router.patch('/:id', productController.patchProduct);
+router.delete('/:id', productController.deleteProduct);
+
 module.exports = router;
