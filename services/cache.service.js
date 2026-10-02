@@ -50,4 +50,4 @@ function clear() {
   cache.clear();
 }
 
-module.exports = { get, set, clear, CACHE_TTL };
+module.exports = { get, set, clear };

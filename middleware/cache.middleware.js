@@ -2,7 +2,7 @@
  * Cache Middleware
  *
  * For GET requests only:
- *  - HIT: returns cached response with X-Cache: HIT and X-Cache-Age headers
+ *  - HIT: returns cached response with X-Cache: HIT header
  *  - MISS: intercepts res.json to cache only 200 responses, sets X-Cache: MISS
  */
 
@@ -19,9 +19,7 @@ function cacheMiddleware(req, res, next) {
 
   if (entry) {
     // Cache HIT — return cached data without hitting controller
-    const ageSeconds = Math.round((Date.now() - entry.createdAt) / 1000);
     res.set('X-Cache', 'HIT');
-    res.set('X-Cache-Age', String(ageSeconds));
     return res.status(200).json(entry.value);
   }
 
