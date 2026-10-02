@@ -9,15 +9,16 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/product.controller');
 const cacheMiddleware = require('../middleware/cache.middleware');
+const invalidateCache = require('../middleware/invalidate.middleware');
 
 // GET routes (with cache middleware)
 router.get('/', cacheMiddleware, productController.getAllProducts);
 router.get('/:id', cacheMiddleware, productController.getProductById);
 
-// Write routes (invalidation middleware will be added in the next commit)
-router.post('/', productController.createProduct);
-router.put('/:id', productController.updateProduct);
-router.patch('/:id', productController.patchProduct);
-router.delete('/:id', productController.deleteProduct);
+// Write routes (with cache invalidation middleware)
+router.post('/', invalidateCache, productController.createProduct);
+router.put('/:id', invalidateCache, productController.updateProduct);
+router.patch('/:id', invalidateCache, productController.patchProduct);
+router.delete('/:id', invalidateCache, productController.deleteProduct);
 
 module.exports = router;
